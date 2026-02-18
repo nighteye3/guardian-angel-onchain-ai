@@ -5,11 +5,13 @@ require("dotenv").config();
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
+// --- Core AI Wrappers ---
+
 const analyzeWithGroq = async (prompt) => {
   try {
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: "llama3-70b-8192", // High performance open model
+      model: "llama3-70b-8192", // Optimized for speed and logic
     });
     return completion.choices[0]?.message?.content || "No response from Groq.";
   } catch (error) {
@@ -30,25 +32,65 @@ const analyzeWithGemini = async (prompt) => {
   }
 };
 
-// Unified function to call either or both
+// --- Specialized Audit & Security Functions ---
+
 const analyzeRisk = async (data, provider = "groq") => {
   const prompt = `
-    Analyze the following blockchain transaction/contract data for security risks.
-    Data: ${JSON.stringify(data)}
+    🚨 SECURITY ALERT ANALYSIS 🚨
     
-    Identify:
-    1. Potential vulnerabilities (reentrancy, overflow, etc.)
-    2. Suspicious patterns (phishing, rug pull signs)
-    3. Risk Level (Low/Medium/High/Critical)
-    
-    Provide a concise summary.
-  `;
+    You are an elite blockchain security researcher. Analyze the following data:
+    "${JSON.stringify(data)}"
 
-  if (provider === "gemini") {
-    return await analyzeWithGemini(prompt);
-  } else {
-    return await analyzeWithGroq(prompt);
-  }
+    Task:
+    1. Identify immediate security threats (Reentrancy, Rug Pull potential, Phishing).
+    2. Assess the 'Vibe' of the contract/transaction (is it imitating a legit project?).
+    3. Assign a Risk Score (0-100, where 100 is Critical Danger).
+    4. Recommend immediate user action (e.g., "Revoke approvals immediately").
+
+    Format the output as a Markdown report with emojis.
+  `;
+  
+  return provider === "gemini" ? await analyzeWithGemini(prompt) : await analyzeWithGroq(prompt);
 };
 
-module.exports = { analyzeRisk, analyzeWithGroq, analyzeWithGemini };
+const auditContract = async (code, provider = "gemini") => {
+  const prompt = `
+    📜 SMART CONTRACT AUDIT REPORT 📜
+
+    You are a senior solidity auditor. Deeply inspect the following code:
+    
+    \`\`\`solidity
+    ${code}
+    \`\`\`
+
+    Perform a line-by-line security review focusing on:
+    - Access Control vulnerabilities (who owns the contract?).
+    - Logic bombs or hidden backdoors.
+    - Financial exploits (overflows, flash loan attacks).
+    - Gas optimization suggestions.
+
+    Provide a professional Audit Summary.
+  `;
+
+  // Prefer Gemini for deep context audits
+  return provider === "groq" ? await analyzeWithGroq(prompt) : await analyzeWithGemini(prompt);
+};
+
+const traceFunds = async (transactionData, provider = "groq") => {
+  const prompt = `
+    🕸️ FUND TRACEBACK & VISUALIZATION DATA 🕸️
+
+    Data: "${JSON.stringify(transactionData)}"
+
+    You are a forensic blockchain analyst.
+    1. Reconstruct the flow of funds from the provided transaction data.
+    2. Identify if funds are moving to known high-risk entities (Mixers, Exchanges, Blacklisted wallets).
+    3. Generate a textual representation of the graph (Source -> Intermediary -> Destination).
+    
+    Output structured data explaining the path of funds.
+  `;
+
+  return provider === "gemini" ? await analyzeWithGemini(prompt) : await analyzeWithGroq(prompt);
+};
+
+module.exports = { analyzeRisk, auditContract, traceFunds };
