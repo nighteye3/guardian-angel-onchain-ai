@@ -11,7 +11,7 @@ const analyzeWithGroq = async (prompt) => {
   try {
     const completion = await groq.chat.completions.create({
       messages: [{ role: "user", content: prompt }],
-      model: "llama3-70b-8192", // Optimized for speed and logic
+      model: "llama-3.3-70b-versatile", // Optimized for speed and logic
     });
     return completion.choices[0]?.message?.content || "No response from Groq.";
   } catch (error) {
