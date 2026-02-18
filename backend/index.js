@@ -3,6 +3,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const { analyzeRisk, auditContract, traceFunds } = require("./services/aiService");
+const { startMonitoring, getRecentScans } = require("./services/monitorService");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -10,8 +11,11 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
+// Start the Blockchain Listener
+startMonitoring();
+
 app.get("/", (req, res) => {
-  res.send("🛡️ Guardian Angel Security Node is Active");
+  res.send("🛡️ Guardian Angel Watchdog is Active");
 });
 
 // 1. General Risk Analysis
@@ -42,6 +46,11 @@ app.post("/trace", async (req, res) => {
   console.log(`[Fund Trace] Tracing funds with ${provider || "groq"}...`);
   const result = await traceFunds(transactionData, provider);
   res.json({ result });
+});
+
+// 4. Live Monitor Feed
+app.get("/monitor", (req, res) => {
+  res.json({ scans: getRecentScans() });
 });
 
 app.listen(PORT, () => {

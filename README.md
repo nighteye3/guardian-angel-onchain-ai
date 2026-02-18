@@ -1,55 +1,49 @@
-# 🛡️ Guardian Angel: AI-Powered Onchain Security Suite
+# 🛡️ Guardian Angel: Onchain AI Security Watchdog
 
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Network: BNB Chain](https://img.shields.io/badge/Network-BNB%20Chain-F0B90B.svg)
-![Powered By: Groq](https://img.shields.io/badge/AI-Groq-orange.svg)
-![Powered By: Gemini](https://img.shields.io/badge/AI-Gemini-blue.svg)
+![Live Monitor: Active](https://img.shields.io/badge/Monitor-Active-red.svg)
 
-**Guardian Angel** is a next-generation decentralized security platform built for the **BNB Chain "Good Vibes Only" Hackathon**. It combines high-speed inference (Groq) and deep reasoning (Gemini) to audit smart contracts, detect sophisticated scams, and visualize complex fund flows in real-time.
+**Guardian Angel** is an autonomous security watchdog for the **BNB Chain hackathon**. Instead of just analyzing contracts on demand, it **proactively listens to the blockchain**, detects new contract deployments in real-time, and automatically subjects them to an AI security audit.
 
 ## 🚀 Core Features
 
-### 1. 🧠 AI Smart Contract Auditor
-*   **Instant Vulnerability Detection:** Scans Solidity code for reentrancy, integer overflows, and unchecked external calls.
-*   **Logic Analysis:** Uses LLMs to understand the *intent* of the code, not just syntax, catching "business logic" exploits that static analyzers miss.
-*   **Report Generation:** Delivers a professional, line-by-line security assessment.
+### 1. 📡 Live Onchain Watchdog (New!)
+*   **Real-Time Listener:** A backend service that subscribes to BNB Chain block events.
+*   **Auto-Audit:** Automatically detects every new contract deployment and triggers an instant AI analysis of its bytecode and transaction input.
+*   **Live Feed:** Displays a scrolling feed of new contracts and their immediate "Risk Vibe" score.
 
-### 2. 🕵️ Onchain Scam Detector
-*   **Rug Pull Detection:** Analyzes liquidity pool configurations and ownership privileges to predict potential rugs.
-*   **HoneyPot Scanner:** Simulates sell transactions to ensure tokens aren't locked.
-*   **Pattern Recognition:** Identifies recurring scam signatures across the blockchain.
+### 2. 📜 Smart Contract Auditor
+*   **Deep Analysis:** Paste source code to get a line-by-line vulnerability report (Reentrancy, Access Control, Logic Bombs).
+*   **Powered by Gemini:** Uses Google's Gemini Pro for deep reasoning and complex logic verification.
 
-### 3. 🕸️ Fund Traceback Visualizer
-*   **Visual Asset Tracking:** Graph-based visualization of fund movements to trace stolen assets through mixers or multiple hops.
-*   **Money Flow Analysis:** AI-driven tagging of suspicious wallets and contract interactions.
-*   **Incident Response:** Helps victims and investigators reconstruct the timeline of an attack.
+### 3. 🔍 Address Inspector & Visualizer
+*   **Account Vetting:** Input any wallet address to get a summary of its activity, risk profile, and visualized history.
+*   **Scam Detection:** Checks for patterns associated with known rug-pullers or honeypot creators.
+
+### 4. 🕸️ Fund Traceback
+*   **Forensic Analysis:** Reconstructs the flow of funds from a transaction hash.
+*   **Visual Graphing:** Generates a text-based graph of asset movement to help trace stolen funds.
 
 ## 🏗 Architecture
 
 ```mermaid
 graph TD
-    A[User / Frontend] -->|Submit Code/Tx| B(Node.js Backend)
-    B -->|Fast Analysis| C{Groq API}
-    B -->|Deep Audit| D{Gemini API}
-    B -->|Onchain Data| E[BNB Chain RPC]
-    C -->|Risk Score| B
-    D -->|Detailed Report| B
-    B -->|JSON Result| A
+    A[BNB Chain] -->|Block Events| B(Node.js Monitor)
+    B -->|New Contract?| C{Groq AI}
+    C -->|Risk Report| D[Frontend Live Feed]
+    E[User] -->|Manual Audit| F{Gemini AI}
+    F -->|Detailed Report| E
 ```
 
 ## 🛠 Tech Stack
 
-*   **Frontend:** React + Vite (High-performance Dashboard)
-*   **Backend:** Node.js + Express (AI Orchestration Layer)
-*   **AI:** Groq (Llama 3) for speed, Google Gemini for reasoning
-*   **Blockchain:** Solidity, Hardhat, Ethers.js
-*   **Visualization:** React Flow (for transaction tracing)
+*   **Frontend:** React + Vite (Real-time dashboard)
+*   **Backend:** Node.js + Express + Ethers.js (Blockchain Listener)
+*   **AI:** Groq (Llama 3) for high-speed scanning, Gemini for deep audits
+*   **Blockchain:** BNB Chain RPC
 
 ## 📦 Installation & Setup
-
-### Prerequisites
-*   Node.js v18+
-*   Git
 
 ### 1. Clone the Repository
 ```bash
@@ -57,23 +51,24 @@ git clone https://github.com/nighteye3/guardian-angel-onchain-ai.git
 cd guardian-angel-onchain-ai
 ```
 
-### 2. Backend Setup
+### 2. Backend (The Watchdog)
 ```bash
 cd backend
 npm install
-# Create .env file with GROQ_API_KEY and GEMINI_API_KEY
+# Create .env with GROQ_API_KEY and GEMINI_API_KEY
 npm start
 ```
+*The backend will immediately start printing live block data from BNB Chain.*
 
-### 3. Frontend Setup
+### 3. Frontend (The Dashboard)
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-## 🔐 Security & Privacy
-This tool is designed to **protect** users. No private keys are ever stored or transmitted to the backend. All analysis is performed on public data.
+## 🔐 Security
+This tool is a passive observer and analyst. It does not hold custody of funds or require private keys to operate.
 
 ## 📜 License
 MIT
