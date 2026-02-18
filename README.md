@@ -72,6 +72,15 @@ npm install
 npm run dev
 ```
 
+### 4. Run with Docker (Recommended)
+You can run the entire suite (Backend + Frontend) in isolated containers.
+
+```bash
+# Ensure you have your keys in backend/.env first
+docker-compose up --build
+```
+Access the dashboard at: `http://localhost:8080`
+
 ## 🔐 Security
 This tool is a passive observer and analyst. It does not hold custody of funds or require private keys to operate.
 

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: guardian-backend
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    networks:
+      - guardian-net
+    restart: always
+
+  frontend:
+    build: ./frontend
+    container_name: guardian-dashboard
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - guardian-net
+    restart: always
+
+networks:
+  guardian-net:
+    driver: bridge
