@@ -1,8 +1,13 @@
 # 🛡️ Guardian Angel: Onchain AI Security Watchdog
 
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Network: BNB Chain](https://img.shields.io/badge/Network-BNB%20Chain-F0B90B.svg)
-![Live Monitor: Active](https://img.shields.io/badge/Monitor-Active-red.svg)
+<div align="center">
+  <img src="assets/bot-avatar.png" alt="Guardian Angel Bot" width="128" height="128" />
+  <br/>
+  
+  ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+  ![Network: BNB Chain](https://img.shields.io/badge/Network-BNB%20Chain-F0B90B.svg)
+  ![Live Monitor: Active](https://img.shields.io/badge/Monitor-Active-red.svg)
+</div>
 
 **Guardian Angel** is an autonomous security watchdog for the **BNB Chain hackathon**. Instead of just analyzing contracts on demand, it **proactively listens to the blockchain**, detects new contract deployments in real-time, and automatically subjects them to an AI security audit.
 
